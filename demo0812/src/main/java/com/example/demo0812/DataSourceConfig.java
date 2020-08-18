@@ -16,7 +16,7 @@ import javax.sql.DataSource;
 
 @Configuration
 //指定扫描的mapper接口所在的包
-@MapperScan(basePackages = "com.demo", sqlSessionFactoryRef = "DBDataSqlSessionFactory")
+@MapperScan(basePackages = "com.example.demo0812", sqlSessionFactoryRef = "DBDataSqlSessionFactory")
 public class DataSourceConfig {
     @Bean(name = "DBDataSource")
     @ConfigurationProperties(prefix="spring.datasource") //告诉自动加载配置的属性

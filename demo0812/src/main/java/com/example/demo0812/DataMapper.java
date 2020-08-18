@@ -14,15 +14,18 @@ import org.springframework.stereotype.Repository;
 @Component
 public interface DataMapper {
 
+    //显示
+    List<Rule> listALL();
+
     //查询
-    List<Rule> testQuery(@Param("pcode")String pcode);
+    List<Rule> ruleQuery(@Param("pcode")String pcode);
 
     //插入
-    void testInsert(Rule rule);
+    void ruleInsert(Rule rule);
 
     //更新
-    void testUpdate(@Param("pname")String pname, @Param("ppos")String ppos);
+    void ruleUpdate(@Param("pname")String pname, @Param("ppos")String ppos);
 
     //删除
-    void testDelete(String pname);
+    void ruleDelete(String pname);
 }

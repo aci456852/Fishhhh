@@ -1,5 +1,6 @@
 package com.example.demo0812.Controller;
 
+import com.example.demo0812.bean.Rule;
 import com.example.demo0812.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -53,7 +55,7 @@ public class FileUploadController {
         }
         try {
             uploadfile.transferTo(dest); //保存文件
-            fileService.insql(filename);
+            //fileService.insql(filename);
             return "文件上传成功";
         } catch (IllegalStateException | IOException e) {
             // TODO Auto-generated catch block
@@ -61,4 +63,6 @@ public class FileUploadController {
             return "文件上传失败";
         }
     }
+
+
 }

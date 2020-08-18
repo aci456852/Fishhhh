@@ -12,34 +12,35 @@
         <result column="ptype" property="ptype" javaType="java.lang.String" jdbcType="VARCHAR" />
     </resultMap>
 
+    <!-- 显示数据 -->
+    <select id="listALL" resultMap="Rule_resultMap">
+        select * from Rule
+    </select>
+
     <!-- 查询数据 -->
     <!-- 入参定义：在接口定义中使用@Param注解(单参/多参都可使用) -->
     <!-- 语句末尾不能有分号：ORA-00911: invalid character -->
-    <select id="testQuery" resultMap="Rule_resultMap">
-        select * from Rule where 1=1
-        <if test="pcode != null">
-            and pcode >= #{pcode}
-        </if>
-        order by pcode
+    <select id="ruleQuery" resultMap="Rule_resultMap">
+        select * from Rule where pcode = #{pcode}
     </select>
 
     <!-- 插入数据 -->
     <!-- 入参定义：实体类，会自动解析属性到对应的值-->
-    <insert id="testInsert" parameterType="com.example.demo0812.bean.Rule">
+    <insert id="ruleInsert" parameterType="com.example.demo0812.bean.Rule">
 		insert into Rule (pname,pcode,ppos,ptype)
 		values (#{pname}, #{pcode}, #{ppos}, #{ptype})
 	</insert>
 
     <!-- 更新数据 -->
     <!-- 入参定义：在接口定义中使用@Param注解(多参情况，只能使用这种形式) -->
-    <update id="testUpdate">
+    <update id="ruleUpdate">
 		UPDATE Rule SET ppos = #{ppos}
 		WHERE pname = #{pname}
 	</update>
 
     <!-- 删除数据 -->
     <!-- 入参定义：parameterType指定输入参数(单参情况，亦可@Param注解) -->
-    <delete id="testDelete" parameterType="java.lang.String">
+    <delete id="ruleDelete" parameterType="java.lang.String">
 		DELETE FROM Rule WHERE pname =#{pname}
 	</delete>
 

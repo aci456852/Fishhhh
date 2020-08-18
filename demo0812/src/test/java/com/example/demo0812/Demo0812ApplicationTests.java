@@ -28,7 +28,7 @@ class Demo0812ApplicationTests {
     {
         System.out.println("test_query...");
         String pcode="GZ01010101";
-        List<Rule> RuleList =dataMapper.testQuery(pcode);
+        List<Rule> RuleList =dataMapper.ruleQuery(pcode);
         Rule.Print(RuleList);
     }
     @Test
@@ -40,21 +40,21 @@ class Demo0812ApplicationTests {
         rule.setPcode("GZ01010101");
         rule.setPpos("ERP.人力资源.用户.填写规则");
         rule.setPtype("风险");
-        dataMapper.testInsert(rule);
+        dataMapper.ruleInsert(rule);
     }
 
     @Test
     void testUpdate()
     {
         System.out.println("test_update...");
-        dataMapper.testUpdate("规则01", "改成其他的");
+        dataMapper.ruleUpdate("规则01", "改成其他的");
     }
 
     @Test
     void testDelete()
     {
         System.out.println("test_delete...");
-        dataMapper.testDelete("规则01");
+        dataMapper.ruleDelete("规则01");
     }
 
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.util.List;
 
 @Service
 public class FileService {
@@ -46,8 +47,7 @@ public class FileService {
                 rule.setPcode(row.getCell(1).toString());
                 rule.setPpos(row.getCell(2).toString());
                 rule.setPtype(row.getCell(3).toString());
-
-                dataMapper.testInsert(rule);
+                dataMapper.ruleInsert(rule);
 //                int totalCells = row.getLastCellNum() ;
 //                for (int j = row.getFirstCellNum(); j < totalCells; j++) {
 //                    if(row.getCell(j) == null){ // 处理空列
@@ -64,4 +64,5 @@ public class FileService {
             e.printStackTrace();
         }
     }
+
 }
