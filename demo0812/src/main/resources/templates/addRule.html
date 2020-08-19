@@ -1,0 +1,26 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>新增规则</title>
+</head>
+<body>
+<h2>新增规则</h2>
+<form th:action="@{/ruleInsert}" method="post" th:object="${rule}">
+    名称:
+    <input type="text" name="userName" th:value="*{pname}">
+    编码:
+    <input type="text" name="phone" th:value="*{pcode}">
+    规则定位:
+    <input type="text" name="sex" th:value="*{ppos}">
+    规则类型:
+    <input type="text" name="sex" th:value="*{ptype}">
+    <br>
+    <input type="submit" value="提交">
+</form>
+<br>
+<p>
+    <a href="index.html">返回首页</a>
+</p>
+</body>
+</html>
+

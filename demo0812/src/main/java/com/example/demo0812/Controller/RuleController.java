@@ -1,12 +1,11 @@
 package com.example.demo0812.Controller;
 
 import com.example.demo0812.bean.Rule;
-import com.example.demo0812.service.FileService;
 import com.example.demo0812.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
@@ -17,17 +16,17 @@ public class RuleController {
     @Autowired
     private RuleService ruleService;
 
-    @RequestMapping("listALL")
+    @RequestMapping("rule")
     @ResponseBody
-    public ModelAndView listALL(){
+    public ModelAndView listALL(Model model){
+
         ModelAndView mav = new ModelAndView("rule");
         List<Rule> rules=ruleService.listALL();
         mav.addObject("rules",rules);
         return mav;
     }
 
-    @RequestMapping("ruleQuery")
-    @ResponseBody
+    @GetMapping("{id}")
     public List<Rule> ruleQuery(String pcode){
         List<Rule> rules=ruleService.ruleQuery("GZ01010101");
         for (Rule r:rules){
@@ -36,21 +35,19 @@ public class RuleController {
         return rules;
     }
 
-    @RequestMapping("ruleInsert")
-    @ResponseBody
-    public void ruleInsert(Rule rule){
+    @RequestMapping(value = "/ruleInsert", method = RequestMethod.POST)
+    public void ruleInsert(@ModelAttribute(value="rule") Rule rule){
         ruleService.ruleInsert(rule);
     }
 
-    @RequestMapping("ruleUpdate")
-    @ResponseBody
-    public void ruleUpdate(String pname, String ppos){
+    @GetMapping("/ruleUpdate/{pname}+{ppos}")
+    public void ruleUpdate(@PathVariable("pname") String pname, String ppos){
         ruleService.ruleUpdate(pname,ppos);
     }
 
-    @RequestMapping("ruleDelete")
-    @ResponseBody
-    public void ruleDelete(String pname){
+    @GetMapping("/ruleDelete/{pname}")
+    public void ruleDelete(@PathVariable("pname") String pname){
+        System.out.println(pname);
         ruleService.ruleDelete(pname);
     }
 }

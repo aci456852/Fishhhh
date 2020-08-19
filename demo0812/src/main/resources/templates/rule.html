@@ -3,8 +3,19 @@
 <!-- 使用thymeleaf需引入 -->
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8" />
+    <title>结果展示</title>
 </head>
 <body>
+
+<p>
+    <a href="index.html">首页</a>
+</p>
+
+<p>
+    <a href="addRule.html">新增规则</a>
+</p>
+
 <div  id="tableP">
     <table>
         <caption>规则信息</caption>
@@ -20,6 +31,10 @@
             <td th:text="${{item.pcode}}"></td>
             <td th:text="${{item.ppos}}"></td>
             <td th:text="${{item.ptype}}"></td>
+            <td>
+                <a th:href="@{'/ruleUpdate/'+${item.pname}+${item.ppos}}">编辑</a>
+                <a th:href="@{'/ruleDelete/'+${item.pname}}">删除</a>
+            </td>
         </tr>
     </table>
 </div>
