@@ -5,7 +5,7 @@
 </head>
 <body>
 <h2 th:text="${title}"></h2>
-<form action="/rules" th:action="@{/addRule}" method="post" th:object="${rule}">
+<form action="/rules/insert" th:action="@{/rules/insert}" method="post" th:object="${rule}">
     名称:
     <input type="text" name="userName" th:value="*{pname}">
     编码:
@@ -18,9 +18,6 @@
     <input type="submit" value="提交">
 </form>
 <br>
-<p>
-    <a href="../index.html">返回首页</a>
-</p>
 </body>
 </html>
 

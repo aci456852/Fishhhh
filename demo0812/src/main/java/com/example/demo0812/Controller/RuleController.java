@@ -75,14 +75,15 @@ public class RuleController{
 
     @GetMapping
     public ModelAndView list(Model model) {
+        model.addAttribute("rule",new Rule());
         model.addAttribute("ruleList", ruleService.listALL());
         model.addAttribute("title", "规则管理");
         return new ModelAndView("rules/rule","ruleModel",model);
     }
 
-    @GetMapping("/queryRule/{pcode}")
-    public ModelAndView ruleQuery(@PathVariable("pcode") String pcode,Model model) {
-        List<Rule> rules = ruleService.ruleQuery(pcode);
+    @GetMapping("/queryRule/")
+    public ModelAndView ruleQuery(Rule rule,Model model) {
+        List<Rule> rules = ruleService.ruleQuery(rule.getPcode());
         model.addAttribute("ruleList",rules);
         model.addAttribute("title", "查询规则");
         return new ModelAndView("rules/queryRule","ruleModel",model);
@@ -95,16 +96,35 @@ public class RuleController{
         return new ModelAndView("rules/addRule","ruleModel",model);
     }
 
-    @PostMapping
-    public ModelAndView UpdateRule(String pname, String ppos) {
-        ruleService.ruleUpdate(pname,ppos);
-        return new ModelAndView("redirect:/rules");//重定向到list页面
+    @PostMapping("insert")
+    public ModelAndView insert(Rule rule){
+        ruleService.ruleInsert(rule);
+        return new ModelAndView("redirect:/index");
+    }
+
+
+    @GetMapping("/ruleUpdate/{pcode}")
+    public ModelAndView UpdateRule(@PathVariable("pname") String pcode, Model model) {
+//        List<Rule> rules = ruleService.ruleQuery(pcode);
+//        Rule rule = rules.get(0);
+        model.addAttribute("rule", ruleService.ruleQuery(pcode));
+        model.addAttribute("title","修改规则");
+        //ruleService.ruleUpdate(pname,ppos);
+        return new ModelAndView("rules/ruleUpdate","ruleModel",model);//重定向到list页面
+    }
+
+    @PostMapping("modify")
+    public ModelAndView modify(Rule rule){
+        String pname = rule.getPname();
+        String pcode = rule.getPcode();
+        ruleService.ruleUpdate(pname, pcode);
+        return new ModelAndView("redirect:/index");
     }
 
     @GetMapping("/ruleDelete/{pname}")
     public ModelAndView ruleDelete(@PathVariable("pname") String pname) {
         ruleService.ruleDelete(pname);
-        return new ModelAndView("redirect:/rules");//重定向到list页面
+        return new ModelAndView("redirect:/rules");
     }
 
 }

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultrag.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>Thymeleaf in action</title>
+</head>
+<body>
+<h3 th:text="${title}"></h3>
+<form action="/rules/modify" th:action="@{/rules/modify}" method="POST" th:object="${rule.get(0)}">
+    名称：
+    <input type="text" name="name" th:value="${rule.get(0).pname}">
+    <br>
+    编码：
+    <input type="text" name="email" th:value="${rule.get(0).pcode}">
+    <br>
+    规则类型：
+    <input type="text" name="name" th:value="${rule.get(0).ptype}">
+    <br>
+    规则定位：
+    <input type="text" name="name" th:value="${rule.get(0).ppos}">
+    <br>
+
+    <input type="submit" value="提交" >
+</form>
+</body>
+</html>
