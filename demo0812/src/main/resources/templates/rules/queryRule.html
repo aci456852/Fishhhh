@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>查询规则</title>
+</head>
+<body>
+<h3 th:text="${title}"></h3>
+<div>
+    <p>名称：<span th:text="${ruleList[0].pname}"></span></p>
+    <p>编码：<span th:text="${ruleList[0].pcode}"></span></p>
+    <p>规则定位：<span th:text="${ruleList[0].ppos}"></span></p>
+    <p>规则类型：<span th:text="${ruleList[0].ptype}"></span></p>
+</div>
+
+
+</body>
+</html>

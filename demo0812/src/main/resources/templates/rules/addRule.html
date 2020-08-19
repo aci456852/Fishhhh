@@ -4,8 +4,8 @@
     <title>新增规则</title>
 </head>
 <body>
-<h2>新增规则</h2>
-<form th:action="@{/ruleInsert}" method="post" th:object="${rule}">
+<h2 th:text="${title}"></h2>
+<form action="/rules" th:action="@{/addRule}" method="post" th:object="${rule}">
     名称:
     <input type="text" name="userName" th:value="*{pname}">
     编码:
@@ -19,7 +19,7 @@
 </form>
 <br>
 <p>
-    <a href="index.html">返回首页</a>
+    <a href="../index.html">返回首页</a>
 </p>
 </body>
 </html>
