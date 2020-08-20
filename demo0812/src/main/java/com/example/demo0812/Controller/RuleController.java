@@ -58,12 +58,9 @@ import com.example.demo0812.bean.Rule;
 import com.example.demo0812.service.RuleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+import sun.misc.Request;
 
 import java.util.List;
 
@@ -78,6 +75,8 @@ public class RuleController{
         model.addAttribute("rule",new Rule());
         model.addAttribute("ruleList", ruleService.listALL());
         model.addAttribute("title", "规则管理");
+        model.addAttribute("flag1", "flag1");
+        System.out.println(model.getAttribute("flag1"));
         return new ModelAndView("rules/rule","ruleModel",model);
     }
 
@@ -90,14 +89,19 @@ public class RuleController{
     }
 
     @GetMapping("/addRule")
-    public ModelAndView createRule(Model model) {
-        model.addAttribute("rule",new Rule());
+    public ModelAndView createRule(@ModelAttribute(value = "rule") Rule rule,Model model) {
+        System.out.println(rule);
+        model.addAttribute("rule",rule);
         model.addAttribute("title", "创建规则");
-        return new ModelAndView("rules/addRule","ruleModel",model);
+        ModelAndView mav = new ModelAndView("rules/insert","ruleModel",model);
+        ruleService.ruleInsert(rule);
+        System.out.println(rule);
+        return mav;
     }
 
     @PostMapping("insert")
     public ModelAndView insert(Rule rule){
+        System.out.println(rule);
         ruleService.ruleInsert(rule);
         return new ModelAndView("redirect:/index");
     }
@@ -105,8 +109,6 @@ public class RuleController{
 
     @GetMapping("/ruleUpdate/{pcode}")
     public ModelAndView UpdateRule(@PathVariable("pname") String pcode, Model model) {
-//        List<Rule> rules = ruleService.ruleQuery(pcode);
-//        Rule rule = rules.get(0);
         model.addAttribute("rule", ruleService.ruleQuery(pcode));
         model.addAttribute("title","修改规则");
         //ruleService.ruleUpdate(pname,ppos);

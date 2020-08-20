@@ -22,7 +22,7 @@ public class FileUploadController {
      */
     @RequestMapping("upload")
     public String file(){
-        return "/upload";
+        return "rules/upload";
     }
     /**
      * 实现文件上传
@@ -51,7 +51,7 @@ public class FileUploadController {
         }
         try {
             uploadfile.transferTo(dest); //保存文件
-            //fileService.insql(filename);
+            fileService.insql(filename);
             return "文件上传成功";
         } catch (IllegalStateException | IOException e) {
             // TODO Auto-generated catch block

@@ -14,7 +14,18 @@
 </p>
 
 <p>
-    <a href="addRule.html">新增规则</a>
+<form action="/rules/addRule" th:action="@{/rules/addRule}" method="get" th:object="${rule}">
+    名称:
+    <input type="text" name="userName" th:value="*{pname}">
+    编码:
+    <input type="text" name="phone" th:value="*{pcode}">
+    规则定位:
+    <input type="text" name="sex" th:value="*{ppos}">
+    规则类型:
+    <input type="text" name="sex" th:value="*{ptype}">
+    <br>
+    <input type="submit" value="提交">
+</form>
 </p>
 
 <p>请输入想查看的规则的编号：

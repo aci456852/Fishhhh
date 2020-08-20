@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class indexContller {
-    @RequestMapping("")
+    @RequestMapping({"","index"})
     public String index(Model model){
 
         model.addAttribute("pcode", new String());

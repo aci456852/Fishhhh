@@ -8,6 +8,9 @@
 <a href="">首页</a>
 <h3 th:text="${title}"></h3>
 <div>
+    <p>名称：<span th:if="${ruleList.size()} eq 0">
+        <span>没有消息</span>
+    </span></p>
     <p>名称：<span th:text="${ruleList[0].pname}"></span></p>
     <p>编码：<span th:text="${ruleList[0].pcode}"></span></p>
     <p>规则定位：<span th:text="${ruleList[0].ppos}"></span></p>
