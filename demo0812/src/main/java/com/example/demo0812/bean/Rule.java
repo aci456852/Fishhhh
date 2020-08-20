@@ -54,4 +54,14 @@ public class Rule {
     public void setPtype(String ptype) {
         this.ptype = ptype;
     }
+
+    @Override
+    public String toString() {
+        return "Rule{" +
+                "pname='" + pname + '\'' +
+                ", pcode='" + pcode + '\'' +
+                ", ppos='" + ppos + '\'' +
+                ", ptype='" + ptype + '\'' +
+                '}';
+    }
 }

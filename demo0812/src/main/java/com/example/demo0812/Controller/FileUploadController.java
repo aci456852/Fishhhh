@@ -3,6 +3,7 @@ package com.example.demo0812.Controller;
 import com.example.demo0812.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -22,16 +23,20 @@ public class FileUploadController {
      */
     @RequestMapping("upload")
     public String file(){
-        return "/upload";
+
+        return "Rule/upload";
     }
     /**
      * 实现文件上传
      * */
-    @RequestMapping("fileUpload")
-    @ResponseBody
-    public String fileUpload(@RequestParam("fileName") MultipartFile uploadfile) {
+    @PostMapping("fileUpload")
+    public void fileUpload(@RequestParam("file") MultipartFile uploadfile,
+                                Model model) {
+        System.out.println("文件上传模块");
+
+        boolean msg = true;
         if (uploadfile.isEmpty()) {
-            return "文件上传失败";
+            msg = false;
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
@@ -51,13 +56,12 @@ public class FileUploadController {
         }
         try {
             uploadfile.transferTo(dest); //保存文件
-            //fileService.insql(filename);
-            return "文件上传成功";
+            fileService.insql(filename);
         } catch (IllegalStateException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return "文件上传失败";
         }
+        model.addAttribute("msg",msg);
     }
 
 }
