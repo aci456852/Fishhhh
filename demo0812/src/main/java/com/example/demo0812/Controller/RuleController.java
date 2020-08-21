@@ -1,56 +1,71 @@
 package com.example.demo0812.Controller;
 
 import com.example.demo0812.bean.Rule;
-import com.example.demo0812.service.FileService;
 import com.example.demo0812.service.RuleService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-@Controller
-public class RuleController {
-
+@RestController
+@RequestMapping("Rule")
+public class RuleController{
     @Autowired
     private RuleService ruleService;
 
-    @RequestMapping("listALL")
-    @ResponseBody
-    public ModelAndView listALL(){
-        ModelAndView mav = new ModelAndView("rule");
-        List<Rule> rules=ruleService.listALL();
-        mav.addObject("rules",rules);
-        return mav;
+    @RequestMapping("/listAll")
+    public ModelAndView listAll(){
+        ModelAndView model=new ModelAndView("/rule/tables");
+        List<Rule> rules = ruleService.listALL();
+        model.addObject("rules",rules);
+        return model;
     }
 
-    @RequestMapping("ruleQuery")
-    @ResponseBody
-    public List<Rule> ruleQuery(String pcode){
-        List<Rule> rules=ruleService.ruleQuery("GZ01010101");
-        for (Rule r:rules){
-            System.out.println("ruleQuery:"+r.getPname()+ " code:" +r.getPcode());
-        }
-        return rules;
+    @RequestMapping("/Query")
+    public ModelAndView ruleQuery(@Param("ppos") String ppos) {
+        List<Rule> rules = ruleService.ruleQuery(ppos);
+        //更新表格
+        ModelAndView model=new ModelAndView("/rule/tables");
+        model.addObject("rules",rules);
+        return model;
     }
 
-    @RequestMapping("ruleInsert")
-    @ResponseBody
-    public void ruleInsert(Rule rule){
+    @RequestMapping("/Insert")
+    public ModelAndView ruleInsert(@Param("pname") String pname,
+                                   @Param("pcode") String pcode,
+                                   @Param("ppos") String ppos,
+                                   @Param("ptype") String ptype) {
+        Rule rule = new Rule(pname,pcode,ppos,ptype);
         ruleService.ruleInsert(rule);
+        //更新表格
+        ModelAndView model=new ModelAndView("/rule/tables");
+        List<Rule> rules = ruleService.listALL();
+        model.addObject("rules",rules);
+        return model;
     }
 
-    @RequestMapping("ruleUpdate")
-    @ResponseBody
-    public void ruleUpdate(String pname, String ppos){
-        ruleService.ruleUpdate(pname,ppos);
+ // 修改没成功 等前端给个框~
+    @RequestMapping("/Update/{pid}")
+    public ModelAndView UpdateRule(@PathVariable("pid") int pid,@Param("ppos") String ppos) {
+        ruleService.ruleUpdate(pid, ppos);//更新表格
+        ModelAndView model=new ModelAndView("/rule/tables");
+        List<Rule> rules = ruleService.listALL();
+        model.addObject("rules",rules);
+        return model;
     }
 
-    @RequestMapping("ruleDelete")
-    @ResponseBody
-    public void ruleDelete(String pname){
-        ruleService.ruleDelete(pname);
+    @RequestMapping("/Delete/{pid}")
+    public ModelAndView ruleDelete(@PathVariable("pid") int pid) {
+        ruleService.ruleDelete(pid);
+        //更新表格
+        ModelAndView model=new ModelAndView("/rule/tables");
+        List<Rule> rules = ruleService.listALL();
+        model.addObject("rules",rules);
+        return model;
     }
+
 }

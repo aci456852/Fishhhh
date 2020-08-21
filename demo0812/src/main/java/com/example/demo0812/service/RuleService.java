@@ -17,20 +17,20 @@ public class RuleService {
         return dataMapper.listALL();
     }
 
-    public List<Rule> ruleQuery(String pcode){
-        return dataMapper.ruleQuery(pcode);
+    public List<Rule> ruleQuery(String ppos){
+        return dataMapper.ruleQuery(ppos);
     }
 
     public void ruleInsert(Rule rule){
         dataMapper.ruleInsert(rule);
     }
 
-    public void ruleUpdate(String pname, String ppos){
-        dataMapper.ruleUpdate(pname,ppos);
+    public void ruleUpdate(int pid, String ppos){
+        dataMapper.ruleUpdate(pid,ppos);
     }
 
-    public void ruleDelete(String pname){
-        dataMapper.ruleDelete(pname);
+    public void ruleDelete(int pid){
+        dataMapper.ruleDelete(pid);
     }
 
 }

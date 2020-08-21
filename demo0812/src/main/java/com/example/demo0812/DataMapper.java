@@ -18,14 +18,14 @@ public interface DataMapper {
     List<Rule> listALL();
 
     //查询
-    List<Rule> ruleQuery(@Param("pcode")String pcode);
+    List<Rule> ruleQuery(@Param("ppos")String ppos);
 
     //插入
     void ruleInsert(Rule rule);
 
     //更新
-    void ruleUpdate(@Param("pname")String pname, @Param("ppos")String ppos);
+    void ruleUpdate(@Param("pid")int pid, @Param("ppos")String ppos);
 
     //删除
-    void ruleDelete(String pname);
+    void ruleDelete(int pid);
 }

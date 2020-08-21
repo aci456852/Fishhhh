@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8" />
+    <title>规则显示</title>
+</head>
+<body>
+<a th:href="@{'/Rule/listAll'}">显示全部</a>
+<table>
+    <form th:action="@{/Rule/Query}">
+        <tr>
+            <td><input name="ppos" type="text" placeholder="规则定位"></td>
+        </tr>
+        <input type="submit" value="查询">
+    </form>
+</table>
+
+<table>
+    <form th:action="@{/Rule/Insert}">
+        <tr>
+            <td><input name="pname" type="text" placeholder="规则名称"></td>
+            <td><input name="pcode" type="text" placeholder="规则编号"></td>
+            <td><input name="ppos" type="text" placeholder="规则定位"></td>
+            <td><input name="ptype" type="text" placeholder="规则类型"></td>
+        </tr>
+        <input type="submit" value="新增">
+    </form>
+</table>
+<table>
+    <thead>
+    <tr>
+        <td>序号</td>
+        <td>规则名称</td>
+        <td>规则编号</td>
+        <td>规则定位</td>
+        <td>规则类型</td>
+        <td>操作</td>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="rule:${rules}">
+        <td th:text="${rule.pid}"></td>
+        <td th:text="${rule.pname}"></td>
+        <td th:text="${rule.pcode}"></td>
+        <td th:text="${rule.ppos}"></td>
+        <td th:text="${rule.ptype}"></td>
+        <td >
+            <a th:href="@{'/Rule/Update/'+${rule.pid}}">修改</a>
+            <a th:href="@{'/Rule/Delete/'+${rule.pid}}">删除</a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>

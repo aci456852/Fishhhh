@@ -6,6 +6,7 @@
     <!--返回的结果集，用于关联实体类属性和数据库字段 -->
     <!--如果实体类属性和数据库属性名保持一致，就不需要javaType和jdbcType（必须大写）属性 -->
     <resultMap id="Rule_resultMap" type="com.example.demo0812.bean.Rule">
+        <result column="pid" property="pid" javaType="java.lang.Integer" jdbcType="INTEGER" />
         <result column="pname" property="pname" javaType="java.lang.String" jdbcType="VARCHAR" />
         <result column="pcode" property="pcode" javaType="java.lang.String" jdbcType="VARCHAR" />
         <result column="ppos" property="ppos" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -14,14 +15,14 @@
 
     <!-- 显示数据 -->
     <select id="listALL" resultMap="Rule_resultMap">
-        select * from Rule
+        select * from Rule order by pid
     </select>
 
     <!-- 查询数据 -->
     <!-- 入参定义：在接口定义中使用@Param注解(单参/多参都可使用) -->
     <!-- 语句末尾不能有分号：ORA-00911: invalid character -->
     <select id="ruleQuery" resultMap="Rule_resultMap">
-        select * from Rule where pcode = #{pcode}
+        select * from Rule where ppos like '%'||#{ppos}||'%'
     </select>
 
     <!-- 插入数据 -->
@@ -35,13 +36,13 @@
     <!-- 入参定义：在接口定义中使用@Param注解(多参情况，只能使用这种形式) -->
     <update id="ruleUpdate">
 		UPDATE Rule SET ppos = #{ppos}
-		WHERE pname = #{pname}
+		WHERE pid = #{pid}
 	</update>
 
     <!-- 删除数据 -->
     <!-- 入参定义：parameterType指定输入参数(单参情况，亦可@Param注解) -->
-    <delete id="ruleDelete" parameterType="java.lang.String">
-		DELETE FROM Rule WHERE pname =#{pname}
+    <delete id="ruleDelete" parameterType="java.lang.Integer">
+		DELETE FROM Rule WHERE pid =#{pid}
 	</delete>
 
 </mapper>

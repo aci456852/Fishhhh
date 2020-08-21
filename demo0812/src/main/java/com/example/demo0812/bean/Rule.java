@@ -3,6 +3,7 @@ package com.example.demo0812.bean;
 import java.util.List;
 
 public class Rule {
+    private int pid;
     private String pname;
     private String pcode;
     private String ppos;
@@ -21,7 +22,23 @@ public class Rule {
         return;
     }
 
+    public Rule() {
+    }
 
+    public Rule(String pname, String pcode, String ppos, String ptype) {
+        this.pname = pname;
+        this.pcode = pcode;
+        this.ppos = ppos;
+        this.ptype = ptype;
+    }
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
 
     public String getPname() {
         return pname;
