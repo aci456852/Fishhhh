@@ -23,7 +23,7 @@ public class FileUploadController {
      */
     @RequestMapping("upload")
     public String file(){
-        return "/upload";
+        return "/rule/upload";
     }
 
     /**
