@@ -41,7 +41,7 @@ public class loginController {
         rules.add(r2);
         System.out.println(rules.get(0).toString());
         model.addAttribute("rules",rules);
-
+        System.out.println(r2.toString());
         return "redirect:/main.html";
     }
 }

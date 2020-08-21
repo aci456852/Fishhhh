@@ -17,6 +17,12 @@ public class RuleController{
     @Autowired
     private RuleService ruleService;
 
+    @RequestMapping("/tables")
+    public String tabels(){
+        System.out.println("这里是表格跳转接口");
+
+        return "Rule/tables";
+    }
 
     @GetMapping("/queryRule/")
     public ModelAndView ruleQuery(Rule rule,Model model) {
