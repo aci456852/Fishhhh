@@ -1,5 +1,6 @@
 package com.example.demo0812.Controller;
 
+import com.example.demo0812.bean.ResponseBean;
 import com.example.demo0812.bean.Rule;
 import com.example.demo0812.service.RuleService;
 import org.apache.ibatis.annotations.Param;
@@ -12,60 +13,39 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("Rule")
-public class RuleController{
+@RequestMapping("/Rule")
+public class RuleController {
     @Autowired
     private RuleService ruleService;
 
-    @RequestMapping("/listAll")
-    public ModelAndView listAll(){
-        ModelAndView model=new ModelAndView("/rule/tables");
+    @GetMapping()
+    public ResponseBean listAll() {
         List<Rule> rules = ruleService.listALL();
-        model.addObject("rules",rules);
-        return model;
+        return new ResponseBean(200, "succ", rules);
     }
 
-    @RequestMapping("/Query")
-    public ModelAndView ruleQuery(@Param("ppos") String ppos) {
+    @GetMapping("/{ppos}")
+    public ResponseBean ruleQuery(@PathVariable("ppos") String ppos) {
         List<Rule> rules = ruleService.ruleQuery(ppos);
-        //更新表格
-        ModelAndView model=new ModelAndView("/rule/tables");
-        model.addObject("rules",rules);
-        return model;
+        return new ResponseBean(200, "succ", rules);
     }
 
-    @RequestMapping("/Insert")
-    public ModelAndView ruleInsert(@Param("pname") String pname,
-                                   @Param("pcode") String pcode,
-                                   @Param("ppos") String ppos,
-                                   @Param("ptype") String ptype) {
-        Rule rule = new Rule(pname,pcode,ppos,ptype);
+    @PostMapping()
+    public ResponseBean ruleInsert(@RequestBody Rule rule) {
         ruleService.ruleInsert(rule);
-        //更新表格
-        ModelAndView model=new ModelAndView("/rule/tables");
-        List<Rule> rules = ruleService.listALL();
-        model.addObject("rules",rules);
-        return model;
+        return new ResponseBean(200, "succ", null);
     }
 
- // 修改没成功 等前端给个框~
-    @RequestMapping("/Update/{pid}")
-    public ModelAndView UpdateRule(@PathVariable("pid") int pid,@Param("ppos") String ppos) {
-        ruleService.ruleUpdate(pid, ppos);//更新表格
-        ModelAndView model=new ModelAndView("/rule/tables");
-        List<Rule> rules = ruleService.listALL();
-        model.addObject("rules",rules);
-        return model;
+    @PutMapping()
+    public ResponseBean ruleUpdate(@RequestBody Rule rule) {
+        ruleService.ruleUpdate(rule.getPid(), rule.getPpos());
+        return new ResponseBean(200, "succ", null);
     }
 
-    @RequestMapping("/Delete/{pid}")
-    public ModelAndView ruleDelete(@PathVariable("pid") int pid) {
+    @DeleteMapping("/{pid}")
+    public ResponseBean ruleDelete(@PathVariable("pid") int pid) {
         ruleService.ruleDelete(pid);
-        //更新表格
-        ModelAndView model=new ModelAndView("/rule/tables");
-        List<Rule> rules = ruleService.listALL();
-        model.addObject("rules",rules);
-        return model;
+        return new ResponseBean(200, "succ", null);
     }
 
 }

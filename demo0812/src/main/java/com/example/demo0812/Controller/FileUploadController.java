@@ -1,5 +1,6 @@
 package com.example.demo0812.Controller;
 
+import com.example.demo0812.bean.ResponseBean;
 import com.example.demo0812.service.FileService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,27 +14,19 @@ import java.util.Date;
 import java.util.UUID;
 
 
-@Controller
+@RestController()
+@RequestMapping("/file")
 public class FileUploadController {
 
     @Autowired
     private FileService fileService;
-    /*
-     * 获取file.html页面
-     */
-    @RequestMapping("upload")
-    public String file(){
-        return "/rule/upload";
-    }
-
     /**
      * 实现文件上传
      * */
-    @RequestMapping("fileUpload")
-    @ResponseBody
-    public String fileUpload(@RequestParam("fileName") MultipartFile uploadfile) {
+    @PostMapping("/excel")
+    public ResponseBean fileUpload(@RequestParam("file") MultipartFile uploadfile) {
         if (uploadfile.isEmpty()) {
-            return "文件上传失败";
+            return new ResponseBean(500,"error","文件上传失败");
         }
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd/");
@@ -48,17 +41,16 @@ public class FileUploadController {
         File dest = new File(filename);
 
         if(!dest.isDirectory()){
-            //递归生成文件夹
-            dest.mkdirs();
+            dest.mkdirs();//递归生成文件夹
         }
         try {
             uploadfile.transferTo(dest); //保存文件
             //fileService.insql(filename);
-            return "文件上传成功";
+            return new ResponseBean(200,"succ",null);
         } catch (IllegalStateException | IOException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
-            return "文件上传失败";
+            return new ResponseBean(500,"error","文件上传失败");
         }
     }
 
